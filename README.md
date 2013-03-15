@@ -3,7 +3,7 @@ pyra
 
 News aggregator in python
 
-[current todo in progress]: use re to parse a result from 4vlada.net in parse.py
+[current todo in progress]: get search results as strings
 
 
 * a plan for the politics topic
@@ -15,3 +15,5 @@ News aggregator in python
 ==done==
 	
 x read this http://docs.python-requests.org/en/latest/index.html (install and use Requests) 
+
+x use re to parse a result from 4vlada.net in parse.py
