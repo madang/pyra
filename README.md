@@ -3,8 +3,9 @@ pyra
 
 News aggregator in python
 
-[current todo in progress]: get search results as strings
+[current todo in progress]: learn to get more than 4 results per API request (if fail just parse the darn thing)
 
+* get search results as strings
 
 * a plan for the politics topic
 	0) Read site list from a file
