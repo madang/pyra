@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import re
-from sys import exit
+from sys import exit #someday redo to raise exception
 
 
 # OK, seem's like we've got a way to search without dealing with anally fenced off corporations
@@ -17,19 +17,24 @@ def startpage_parse(site,keyword,timeframe):
 		'with_domain' : site, 
 		'with_date': timeframe}
 	r = requests.get(engine_url, params = payload)
-	print r.url
+	#~ print r.url
+	assert r.ok
 	# Uncomment lines below to save the html
-	with open('res.html','wb+') as out_file:
-		out_file.write(r.text.encode('utf-8'))
+	#~ with open('res.html','wb+') as out_file:
+		#~ out_file.write(r.text.encode(r.encoding))
 		
 	links_list = re.findall(ur"<h3><a href=\'(.+)\' id",r.text)
-	print '\n\n'.join(links_list)
+	
+	return links_list
+	#~ print '\n\n'.join(links_list)
 
 
+## Commented code below was used to debug this  module when I was writing it 
+## Gena
 
-cache_filename = 'cache.pk'
-site = '4vlada.net'
-keyword = u'политолог'
-timeframe = 'w' # 'w' for last week, 'd' for yesterday
+#~ cache_filename = 'cache.pk'
+#~ site = '4vlada.net'
+#~ keyword = u'политолог'
+#~ timeframe = 'w' # 'w' for last week, 'd' for yesterday
 
-startpage_parse(site,keyword,timeframe)
+#~ startpage_parse(site,keyword,timeframe)
