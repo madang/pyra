@@ -8,7 +8,8 @@ import search
 def parser(article_url):
 	"""Pick a parser depending on the domain"""
 	d = {u'4vlada.net':parse_4vlada_net, \
-	u'minprom.ua':parse_minprom_ua}
+	u'minprom.ua':parse_minprom_ua, \
+	u'www.pravda.com.ua':parse_www_pravda_com_ua}
 	
 	m = re.findall(ur'http://(.+?)/',article_url)
 	print '*'*24
@@ -34,14 +35,14 @@ def parse_4vlada_net(article_url):
 	article_string = article_string.replace(u'&quot;',u'"')
 	print '='*40
 	print article_string.encode('utf-8')
-	return article_string.encode('utf-8')
+	return article_string
 
 
 def parse_minprom_ua(article_url):
 	"""parse an article from minprom.ua v0.0 30-03-2013"""
 	print "Article url: %s \n" % article_url
 	r=requests.get(article_url)
-	print type(r.text)
+	#~ print type(r.text)
 	t_sensible_text = re.findall(ur'<p id="font_size" class="text_art">(.+)</p>',r.text,re.DOTALL)
 	print "len(t_sensible_text) = %d" % len(t_sensible_text)
 	article_string = ''.join(t_sensible_text)
@@ -49,7 +50,19 @@ def parse_minprom_ua(article_url):
 	raw_input(">>>>>>");
 	print '='*40
 	#~ print article_string.encode('utf-8')
-	return article_string.encode('utf-8')
+	return article_string
+
+def parse_www_pravda_com_ua(article_url):
+	"""parse an article from www.pravda.ua v0.0 30-03-2013"""
+	print "Article url: %s \n" % article_url
+	r=requests.get(article_url)
+	t_sensible_text = re.findall(ur'<p>(.+)</p>',r.text)
+	print "len(t_sensible_text) = %d" % len(t_sensible_text)
+	article_string = '\n'.join(t_sensible_text)
+	raw_input(">>>>>>");
+	print '='*40
+	print article_string.encode('utf-8')
+	return article_string
 	
 	
 	#~ # save results for analysis
@@ -58,8 +71,8 @@ def parse_minprom_ua(article_url):
 		#~ f.write(article_string.encode('utf-8'))
 
 
-site = 'minprom.ua'
-keyword = u'партия'
+site = 'www.pravda.com.ua'
+keyword = u'политолог'
 timeframe = 'w' # 'w' for last week, 'd' for yesterday
 
 link_list = search.startpage_parse(site,keyword,timeframe)
