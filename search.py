@@ -18,6 +18,11 @@ def startpage_parse(site,keyword,timeframe):
 		'with_date': timeframe}
 	r = requests.get(engine_url, params = payload)
 	#~ print r.url
+	
+	#######********************************########
+	##         FIX WHEN GUI IS READY
+	## Change assert to popup window.
+	##***************************************######
 	assert r.ok
 	# Uncomment lines below to save the html
 	#~ with open('res.html','wb+') as out_file:
