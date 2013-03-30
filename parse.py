@@ -7,7 +7,8 @@ import search
 
 def parser(article_url):
 	"""Pick a parser depending on the domain"""
-	d = {u'4vlada.net':parse_4vlada_net}
+	d = {u'4vlada.net':parse_4vlada_net, \
+	u'minprom.ua':parse_minprom_ua}
 	
 	m = re.findall(ur'http://(.+?)/',article_url)
 	print '*'*24
@@ -34,13 +35,31 @@ def parse_4vlada_net(article_url):
 	print '='*40
 	print article_string.encode('utf-8')
 	return article_string.encode('utf-8')
-	# save results for analysis
+
+
+def parse_minprom_ua(article_url):
+	"""parse an article from minprom.ua v0.0 30-03-2013"""
+	print "Article url: %s \n" % article_url
+	r=requests.get(article_url)
+	print type(r.text)
+	t_sensible_text = re.findall(ur'<p id="font_size" class="text_art">(.+)</p>',r.text,re.DOTALL)
+	print "len(t_sensible_text) = %d" % len(t_sensible_text)
+	article_string = ''.join(t_sensible_text)
+	print article_string
+	raw_input(">>>>>>");
+	print '='*40
+	#~ print article_string.encode('utf-8')
+	return article_string.encode('utf-8')
+	
+	
+	#~ # save results for analysis
 	#~ t_filename = 'res.txt'
 	#~ with open(t_filename,'w+') as f:
 		#~ f.write(article_string.encode('utf-8'))
 
-site = '4vlada.net'
-keyword = u'политолог'
+
+site = 'minprom.ua'
+keyword = u'партия'
 timeframe = 'w' # 'w' for last week, 'd' for yesterday
 
 link_list = search.startpage_parse(site,keyword,timeframe)
@@ -48,6 +67,7 @@ print '*'*24
 print link_list
 
 parsed_article = []
+## ============== in link_list[0] only for debugging purposes, change back for production
 for article in link_list:
 	parsed_article.append(parser(article))
 	
