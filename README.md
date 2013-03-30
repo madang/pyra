@@ -3,13 +3,9 @@ pyra
 
 News aggregator in python
 
-[current todo in progress]: build a tk gui
+[current todo in progress]: write parsers for each site 
 
 * separate replacement of html markup (like quot) with their string counterparts into a separate function
-
-* define the CLI interface spec
-
-* imlement the CLI
 
 * a plan for the politics topic
 	0) Read site list from a file
@@ -20,8 +16,9 @@ News aggregator in python
 
 ==maybe==
 
-x parse multiple pages from the search result (>10 articles per request)
- 
+* define the CLI interface spec
+
+* imlement the CLI 
 ==done==
 	
 x read this http://docs.python-requests.org/en/latest/index.html (install and use Requests) 
@@ -33,3 +30,7 @@ x learn to get more than 4 results per API request (if fail just parse the darn 
 x get search results as strings
 
 x use proper encoding/decoding for unicode strings 
+
+x parse multiple pages from the search result (>10 articles per request)
+
+x build a tk gui
