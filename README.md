@@ -5,6 +5,8 @@ News aggregator in python
 
 [current todo in progress]: write parsers for each site 
 
+* add a function that would filter out articles containing blacklisted sources (like interfax, etc.)
+
 * separate replacement of html markup (like quot) with their string counterparts into a separate function
 
 * a plan for the politics topic
