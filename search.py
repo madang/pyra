@@ -23,18 +23,20 @@ def startpage_parse(site,keyword,timeframe):
 	#~ with open('res.html','wb+') as out_file:
 		#~ out_file.write(r.text.encode(r.encoding))
 		
-	links_list = re.findall(ur"<h3><a href=\'(.+)\' id",r.text)
-	
-	return links_list
-	#~ print '\n\n'.join(links_list)
+	links_list = re.findall(ur"<h3><a href=\'http://"+site+"(.+)\' id",r.text)
+	links_out = []
+	for link in links_list:
+		links_out.append('http://'+site+link)
+	return links_out
+	#~ print '\n\n'.join(links_out)
 
 
 ## Commented code below was used to debug this  module when I was writing it 
 ## Gena
 
 #~ cache_filename = 'cache.pk'
-#~ site = '4vlada.net'
-#~ keyword = u'политолог'
+#~ site = 'minprom.ua'
+#~ keyword = u'партия'
 #~ timeframe = 'w' # 'w' for last week, 'd' for yesterday
 
 #~ startpage_parse(site,keyword,timeframe)
