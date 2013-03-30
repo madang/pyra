@@ -16,6 +16,8 @@ News aggregator in python
 
 ==maybe==
 
+* parse multiple pages from the search result (>10 articles per request)
+
 * define the CLI interface spec
 
 * imlement the CLI 
@@ -30,7 +32,5 @@ x learn to get more than 4 results per API request (if fail just parse the darn 
 x get search results as strings
 
 x use proper encoding/decoding for unicode strings 
-
-x parse multiple pages from the search result (>10 articles per request)
 
 x build a tk gui
