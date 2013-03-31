@@ -3,6 +3,8 @@ pyra
 
 News aggregator in python
 
+launch gui.py to see it (kind of) working 
+
 [current todo in progress]: write parsers for each site 
 
 * move Rubrics class to separate file (main.py or smth) in order to separate GUI from the function
@@ -14,6 +16,10 @@ News aggregator in python
 * separate replacement of html markup (like quot) with their string counterparts into a separate function
 
 ==maybe==
+
+* add an update button and use manual updates for rubrics
+
+* add a popup with a progressbar and cancel button for rubric update
 
 * parse multiple pages from the search result (>10 articles per request)
 
