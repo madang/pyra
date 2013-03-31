@@ -5,6 +5,8 @@ News aggregator in python
 
 [current todo in progress]: write parsers for each site 
 
+* move Rubrics class to separate file (main.py or smth) in order to separate GUI from the function
+
 * exclude homepages from parsing (relevant at least for www.ukrinform.ua)
 
 * add a function that would filter out articles containing blacklisted sources (like interfax, etc.)
