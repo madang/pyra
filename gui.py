@@ -73,16 +73,16 @@ class Pyra_Gui:
 		self.sites_label = tk.Label(self.search_options,text = u"Сайти")
 		self.sites_label.pack(anchor = "w")
 		
-		self.sites = tk.Text(self.search_options)
-		self.sites.configure(height = 10,width=t_width)
+		self.sites = tk.Listbox(self.search_options)
+		#~ self.sites.configure(height = 10,width=t_width)
 		self.sites.pack()#expand = "yes", fill = "both")
 		
 		#------------------- Keyword label and text
 		self.keywords_label = tk.Label(self.search_options, text = u"Ключові слова")
 		self.keywords_label.pack(anchor = "w")
 		
-		self.keywords = tk.Text(self.search_options)
-		self.keywords.configure(height = 10,width=t_width)
+		self.keywords = tk.Listbox(self.search_options)
+		#~ self.keywords.configure(height = 10,width=t_width)
 		self.keywords.pack()#expand = "yes", fill = "both")
 		# ================== THE MAIN FRAME ============================
 		self.articles = tk.LabelFrame(parent, text = u'Статті')
