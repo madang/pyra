@@ -7,21 +7,21 @@ class Pyra_Gui:
 	def __init__(self, parent):
 		self.parent = parent #remember the parent of the instance
 		
-		
+		self.rubrics = {}
 		# ================ RUBRIC buttons FRAME =======================
 		self.rubrics_frame = tk.LabelFrame(parent, text = u"Рубрики")
 		self.rubrics_frame.pack(side = tk.LEFT, expand = "no", fill = "y")
 		
-		# -----------------ADD SOME BUTTONS------------
-		butn_names = [u'Законодавча влада', \
-			u'Виконавча влада', \
-			u'Політика', 
-			u'Україна у світових \n кризових тенденціях', \
-			u'Ще шось']
+		#~ # -----------------ADD SOME BUTTONS------------
+		#~ butn_names = [u'Законодавча влада', \
+			#~ u'Виконавча влада', \
+			#~ u'Політика', 
+			#~ u'Україна у світових \n кризових тенденціях', \
+			#~ u'Ще шось']
 		self.but = []
-		
-		for butn_name in butn_names:
-			self._add_button(self.rubrics_frame, butn_name)
+		#~ 
+		#~ for butn_name in butn_names:
+			#~ self._add_button(self.rubrics_frame, butn_name)
 			
 			
 		
@@ -84,6 +84,8 @@ class Pyra_Gui:
 		self.keywords = tk.Listbox(self.search_options)
 		#~ self.keywords.configure(height = 10,width=t_width)
 		self.keywords.pack()#expand = "yes", fill = "both")
+		
+		
 		# ================== THE MAIN FRAME ============================
 		self.articles = tk.LabelFrame(parent, text = u'Статті')
 		#~ self.articles.configure(width = 400, height = 300)
@@ -94,24 +96,46 @@ class Pyra_Gui:
 		txt.pack(expand = "yes", fill = "both")
 		
 	def _add_button(self,target,text):
-		self.but.append(tk.Button(target,text = text))
+		self.but.append(tk.Button(target,text = text, 
+			command = lambda
+			arg1 = text:
+			self._display_rubric(arg1)
+			))
 		self.but[-1].configure(height = 2,width = 20)
 		#~ print dir( self.but[-1])
 		self.but[-1].pack()
-
-
-
-def report_event(event):
-	"""Print a description of an event, base don its attributes.
-	"""
-	event_name = {"2": "KeyPress", "4": "ButtonPress"}
-	print "Time", str(event.time)
-	print "EventType=" + str(event.type), \
-		event_name[str(event.type)], \
-		"EventWidgetId=" + str(event.widget), \
-		"EventKeySymbol=" + str(event.keysym)
 		
+		
+	def add_rubric(self,in_rubric):
+		self.rubrics[in_rubric.name]=in_rubric
+		self._add_button(self.rubrics_frame,in_rubric.name)
+		
+	def _display_rubric(self,in_rubric_name):
+		print "I got: %s" % in_rubric_name.encode('utf-8')
+		
+		# get the rubric instance (copy,dics are immutable) using the name
+		temp_rub = self.rubrics[in_rubric_name]
+		
+		for sit in temp_rub.sites:
+			self.sites.insert(tk.END, sit)
+			
+		for k in temp_rub.kw:
+			self.keywords.insert(tk.END, k)
+			
+			
+class Rubric:
+	def __init__(self,name,sites_list = [],kw_list = []):
+		self.name = name
+		self.sites = sites_list
+		self.kw = kw_list
+
+rubric_economic = Rubric(u"Економіка", \
+	["4vlada.net","minprom.ua","www.pravda.com.ua","www.ukrinform.ua"], \
+	[u"политолог", u"партия",u"политика",u"флеш-мобы",u"акции протеста"])
+	
 root = tk.Tk()
 #~ myapp=MyApp(root)
 pyra_gui = Pyra_Gui(root)
+pyra_gui.add_rubric(rubric_economic)
+
 root.mainloop()
