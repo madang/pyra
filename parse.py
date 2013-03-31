@@ -4,6 +4,7 @@
 import re
 import requests
 import search
+import urlparse
 
 def parser(article_url):
 	"""Pick a parser depending on the domain"""
@@ -12,11 +13,10 @@ def parser(article_url):
 	u'www.pravda.com.ua':parse_www_pravda_com_ua, \
 	u'www.ukrinform.ua':parse_www_ukrinform_ua}
 	
-	m = re.findall(ur'http://(.+?)/',article_url)
 	print '*'*24
-	print m
+	print 'article_url = %s' % article_url
 	
-	key  = m[0]
+	key  = urlparse.urlsplit(article_url).netloc
 	return d[key](article_url)
 
 def parse_4vlada_net(article_url):
@@ -83,18 +83,19 @@ def parse_www_ukrinform_ua(article_url):
 	#~ with open(t_filename,'w+') as f:
 		#~ f.write(article_string.encode('utf-8'))
 
+def parse_link_list(link_list):
+	#~ site = 'www.ukrinform.ua'
+	#~ keyword = u'политолог'
+	#~ timeframe = 'w' # 'w' for last week, 'd' for yesterday
+	#~ 
+	#~ link_list = search.startpage_parse(site,keyword,timeframe)
+	print '='*40
+	print link_list
 
-site = 'www.ukrinform.ua'
-keyword = u'политолог'
-timeframe = 'w' # 'w' for last week, 'd' for yesterday
+	out_dic ={}
 
-link_list = search.startpage_parse(site,keyword,timeframe)
-print '='*40
-print link_list
+	for article in link_list:
+		out_dic[article] = parser(article)
 
-parsed_article = []
-## ============== in link_list[0] only for debugging purposes, change back for production
-for article in link_list:
-	parsed_article.append(parser(article))
-	
-print '\n\n'.join(parsed_article)
+	return out_dic
+

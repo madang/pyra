@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import Tkinter as tk
+import search
+import parse
 
 class Pyra_Gui:
 	def __init__(self, parent):
@@ -92,8 +94,8 @@ class Pyra_Gui:
 		self.articles.pack(side = tk.LEFT,expand = "yes", fill = "both")
 		
 		# ------------------ Add the Text widget -----------------------
-		txt = tk.Text(self.articles)
-		txt.pack(expand = "yes", fill = "both")
+		self.txt = tk.Text(self.articles)
+		self.txt.pack(expand = "yes", fill = "both")
 		
 	def _add_button(self,target,text):
 		self.but.append(tk.Button(target,text = text, 
@@ -110,7 +112,7 @@ class Pyra_Gui:
 		self.rubrics[in_rubric.name]=in_rubric
 		self._add_button(self.rubrics_frame,in_rubric.name)
 		
-	def _display_rubric(self,in_rubric_name):
+	def _display_rubric(self,in_rubric_name,update_links = False):
 		print "I got: %s" % in_rubric_name.encode('utf-8')
 		
 		# get the rubric instance (copy,dics are immutable) using the name
@@ -122,16 +124,42 @@ class Pyra_Gui:
 		for k in temp_rub.kw:
 			self.keywords.insert(tk.END, k)
 			
+		if not hasattr(temp_rub,'links'):
+			temp_rub.update()
 			
+		# save the state of the rubric!
+		self.rubrics[in_rubric_name] = temp_rub
+		
+		# display the contents of art_dic in the Text widget
+		for art in temp_rub.links:
+			self.txt.insert(tk.END,"="*40 + "\n")
+			self.txt.insert(tk.END, art + "\n")
+			self.txt.insert(tk.END, temp_rub.art_dic[art])
+
 class Rubric:
 	def __init__(self,name,sites_list = [],kw_list = []):
 		self.name = name
 		self.sites = sites_list
 		self.kw = kw_list
+		
+		
+	def update(self):
+		self.links=[]
+		for t_site in self.sites:
+			for t_kw in self.kw:
+				self.links+=search.startpage_parse(t_site,t_kw,'w')
+					
+		self.art_dic = {} #article dictionary
+		for l in self.links:
+			print l
+			print type(l)
+			#~ raw_input('>>>>>>')
+			
+			self.art_dic[l] = parse.parser(l)
 
 rubric_economic = Rubric(u"Економіка", \
-	["4vlada.net","minprom.ua","www.pravda.com.ua","www.ukrinform.ua"], \
-	[u"политолог", u"партия",u"политика",u"флеш-мобы",u"акции протеста"])
+	["4vlada.net"], [u"политолог"])#"minprom.ua","www.pravda.com.ua","www.ukrinform.ua"], \
+	#[u"политолог"]), u"партия",u"политика",u"флеш-мобы",u"акции протеста"])
 	
 root = tk.Tk()
 #~ myapp=MyApp(root)
