@@ -5,16 +5,11 @@ News aggregator in python
 
 [current todo in progress]: write parsers for each site 
 
+* exclude homepages from parsing (relevant at least for www.ukrinform.ua)
+
 * add a function that would filter out articles containing blacklisted sources (like interfax, etc.)
 
 * separate replacement of html markup (like quot) with their string counterparts into a separate function
-
-* a plan for the politics topic
-	0) Read site list from a file
-	1) Do a search with domain as this site
-	2) 
-	3) OUTPUT: A feed with results
-
 
 ==maybe==
 

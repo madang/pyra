@@ -9,7 +9,8 @@ def parser(article_url):
 	"""Pick a parser depending on the domain"""
 	d = {u'4vlada.net':parse_4vlada_net, \
 	u'minprom.ua':parse_minprom_ua, \
-	u'www.pravda.com.ua':parse_www_pravda_com_ua}
+	u'www.pravda.com.ua':parse_www_pravda_com_ua, \
+	u'www.ukrinform.ua':parse_www_ukrinform_ua}
 	
 	m = re.findall(ur'http://(.+?)/',article_url)
 	print '*'*24
@@ -63,7 +64,19 @@ def parse_www_pravda_com_ua(article_url):
 	print '='*40
 	print article_string.encode('utf-8')
 	return article_string
-	
+
+
+def parse_www_ukrinform_ua(article_url):
+	"""parse an article from www.ukrinform.ua v0.0 30-03-2013"""
+	print "Article url: %s \n" % article_url
+	r=requests.get(article_url)
+	t_sensible_text = re.findall(ur'<h1>(.+)<div class="clear">',r.text,re.DOTALL)
+	print "len(t_sensible_text) = %d" % len(t_sensible_text)
+	article_string = '\n'.join(t_sensible_text)
+	raw_input(">>>>>>");
+	print '='*40
+	print article_string.encode('utf-8')
+	return article_string
 	
 	#~ # save results for analysis
 	#~ t_filename = 'res.txt'
@@ -71,12 +84,12 @@ def parse_www_pravda_com_ua(article_url):
 		#~ f.write(article_string.encode('utf-8'))
 
 
-site = 'www.pravda.com.ua'
+site = 'www.ukrinform.ua'
 keyword = u'политолог'
 timeframe = 'w' # 'w' for last week, 'd' for yesterday
 
 link_list = search.startpage_parse(site,keyword,timeframe)
-print '*'*24
+print '='*40
 print link_list
 
 parsed_article = []
