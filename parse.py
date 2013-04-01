@@ -18,6 +18,9 @@ def parser(article_url):
 	print 'article_url = %s' % article_url
 	
 	key  = urlparse.urlsplit(article_url).netloc
+	
+	if key not in d:
+		return "%s : PARSER UNIMPLEMENTED" % key.encode('utf-8')
 	r=requests.get(article_url)
 	if not r.ok:
 		return 1
