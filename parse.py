@@ -7,7 +7,8 @@ import search
 import urlparse
 
 def parser(article_url):
-	"""Pick a parser depending on the domain"""
+	"""Pick a parser depending on the domain v0.1 01-04-2013"""
+	
 	d = {u'4vlada.net':parse_4vlada_net, \
 	u'minprom.ua':parse_minprom_ua, \
 	u'www.pravda.com.ua':parse_www_pravda_com_ua, \
@@ -17,13 +18,16 @@ def parser(article_url):
 	print 'article_url = %s' % article_url
 	
 	key  = urlparse.urlsplit(article_url).netloc
-	return d[key](article_url)
-
-def parse_4vlada_net(article_url):
-	"""parse an article from 4vlada.net v0.0 17-03-2013"""
-	print "Article url: %s \n" % article_url
 	r=requests.get(article_url)
-	t_sensible_text = re.findall(ur'<p>(.+)</p>',r.text)
+	if not r.ok:
+		return 1
+		
+	return d[key](r.text)
+
+def parse_4vlada_net(in_text):
+	"""parse an article from 4vlada.net v0.1 01-04-2013"""
+	
+	t_sensible_text = re.findall(ur'<p>(.+)</p>',in_text)
 	article_string=u''
 	if t_sensible_text:
 		for i in t_sensible_text[0:-1]: # last match in the t_sensible_text list is useless
@@ -39,12 +43,10 @@ def parse_4vlada_net(article_url):
 	return article_string
 
 
-def parse_minprom_ua(article_url):
-	"""parse an article from minprom.ua v0.0 30-03-2013"""
-	print "Article url: %s \n" % article_url
-	r=requests.get(article_url)
-	#~ print type(r.text)
-	t_sensible_text = re.findall(ur'<p id="font_size" class="text_art">(.+)</p>',r.text,re.DOTALL)
+def parse_minprom_ua(in_text):
+	"""parse an article from minprom.ua v0.1 01-04-2013"""
+	
+	t_sensible_text = re.findall(ur'<p id="font_size" class="text_art">(.+)</p>',in_text,re.DOTALL)
 	print "len(t_sensible_text) = %d" % len(t_sensible_text)
 	article_string = ''.join(t_sensible_text)
 	print article_string
@@ -53,11 +55,10 @@ def parse_minprom_ua(article_url):
 	#~ print article_string.encode('utf-8')
 	return article_string
 
-def parse_www_pravda_com_ua(article_url):
-	"""parse an article from www.pravda.ua v0.0 30-03-2013"""
-	print "Article url: %s \n" % article_url
-	r=requests.get(article_url)
-	t_sensible_text = re.findall(ur'<p>(.+)</p>',r.text)
+def parse_www_pravda_com_ua(in_text):
+	"""parse an article from www.pravda.ua v0.1 01-04-2013"""
+	
+	t_sensible_text = re.findall(ur'<p>(.+)</p>',in_text)
 	print "len(t_sensible_text) = %d" % len(t_sensible_text)
 	article_string = '\n'.join(t_sensible_text)
 	raw_input(">>>>>>");
@@ -66,11 +67,9 @@ def parse_www_pravda_com_ua(article_url):
 	return article_string
 
 
-def parse_www_ukrinform_ua(article_url):
-	"""parse an article from www.ukrinform.ua v0.0 30-03-2013"""
-	print "Article url: %s \n" % article_url
-	r=requests.get(article_url)
-	t_sensible_text = re.findall(ur'<h1>(.+)<div class="clear">',r.text,re.DOTALL)
+def parse_www_ukrinform_ua(in_text):
+	"""parse an article from www.ukrinform.ua v0.1 01-04-2013"""
+	t_sensible_text = re.findall(ur'<h1>(.+)<div class="clear">',in_text,re.DOTALL)
 	print "len(t_sensible_text) = %d" % len(t_sensible_text)
 	article_string = '\n'.join(t_sensible_text)
 	raw_input(">>>>>>");
