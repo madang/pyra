@@ -82,6 +82,25 @@ def parse_www_ukrinform_ua(in_text):
 	#~ with open(t_filename,'w+') as f:
 		#~ f.write(article_string.encode('utf-8'))
 
+def filter_blacklisted(in_text):
+	"""check if the string contains blacklisted sources v0.0 01-04-2013
+	returns True|False
+	"""
+	
+	blacklist = [u"РБК-Украина", \
+		u"Интерфакс", \
+		u"УНИАН", \
+		u"Украинские новости", \
+		u"День", \ #TODO add html quotes here
+		u"Cегодня" \ #TODO add html quotes here
+		]
+	blacklist_re = u"|".join(blacklist)
+	m = re.search(blacklist_re,in_text,re.U)
+	if m:
+		return True
+	else:
+		return False
+
 def parse_link_list(link_list):
 	#~ site = 'www.ukrinform.ua'
 	#~ keyword = u'политолог'

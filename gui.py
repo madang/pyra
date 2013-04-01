@@ -115,7 +115,7 @@ class Pyra_Gui:
 	def _display_rubric(self,in_rubric_name,update_links = False):
 		print "I got: %s" % in_rubric_name.encode('utf-8')
 		
-		# get the rubric instance (copy,dics are immutable) using the name
+		# get the rubric instance using the name
 		temp_rub = self.rubrics[in_rubric_name]
 		
 		for sit in temp_rub.sites:
