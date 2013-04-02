@@ -9,10 +9,10 @@ import urlparse
 def parser(article_url):
 	"""Pick a parser depending on the domain v0.1 01-04-2013"""
 	
-	d = {u'4vlada.net':parse_4vlada_net, \
-	u'minprom.ua':parse_minprom_ua, \
-	u'www.pravda.com.ua':parse_www_pravda_com_ua, \
-	u'www.ukrinform.ua':parse_www_ukrinform_ua}
+	d = {u'4vlada.net':parse_4vlada_net,
+		u'minprom.ua':parse_minprom_ua,
+		u'www.pravda.com.ua':parse_www_pravda_com_ua,
+		u'www.ukrinform.ua':parse_www_ukrinform_ua}
 	
 	print '*'*24
 	print 'article_url = %s' % article_url
@@ -90,12 +90,12 @@ def filter_blacklisted(in_text):
 	returns True|False
 	"""
 	
-	blacklist = [u"РБК-Украина", \
-		u"Интерфакс", \
-		u"УНИАН", \
-		u"Украинские новости", \
-		u"День", \ #TODO add html quotes here
-		u"Cегодня" \ #TODO add html quotes here
+	blacklist = [u"РБК-Украина",
+		u"Интерфакс",
+		u"УНИАН",
+		u"Украинские новости",
+		u"День", #TODO add html quotes here
+		u"Cегодня" #TODO add html quotes here
 		]
 	blacklist_re = u"|".join(blacklist)
 	m = re.search(blacklist_re,in_text,re.U)
