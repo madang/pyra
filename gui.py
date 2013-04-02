@@ -103,7 +103,7 @@ class Pyra_Gui:
 			arg1 = text:
 			self._display_rubric(arg1)
 			))
-		self.but[-1].configure(height = 2,width = 20)
+		self.but[-1].configure(height = 4,width = 20)
 		#~ print dir( self.but[-1])
 		self.but[-1].pack()
 		
@@ -118,9 +118,11 @@ class Pyra_Gui:
 		# get the rubric instance using the name
 		temp_rub = self.rubrics[in_rubric_name]
 		
+		self.sites.delete(0,tk.END)
 		for sit in temp_rub.sites:
 			self.sites.insert(tk.END, sit)
 			
+		self.keywords.delete(0,tk.END)
 		for k in temp_rub.kw:
 			self.keywords.insert(tk.END, k)
 			
@@ -157,13 +159,43 @@ class Rubric:
 			
 			self.art_dic[l] = parse.parser(l)
 
-rubric_economic = Rubric(u"Економіка", \
-	["4vlada.net"], [u"политолог"])#"minprom.ua","www.pravda.com.ua","www.ukrinform.ua"], \
+rubric_zak = Rubric(u"Законодавча влада",
+	['iportal.rada.gov.ua','ombudsman.gov.ua','unn.com.ua',
+		'minprom.ua','pravda.com.ua'], 
+	[u"ВР",u"Верховна Рада",u"законопроект",u"Лутковська",u"фракція"])
+		
+rubric_vyk = Rubric(u'Виконавча влада',
+	['president.gov.ua','kmu.gov.ua','pravda.com.ua'],
+	[u"министр",u"кабинет министров", u"кабмин", u"Прем’єр-міністр"])
+	
+rubric_crysis = Rubric(u'Економіка України \nв контексті світових \nкризових тенденцій', \
+	['epravda.com.ua', 'news.finance.ua', 'ubr.ua', 'lb.ua',
+		'www.pravda.com.ua', 'minprom.ua', 'www.ukrinform.ua',
+		'unn.com.ua', 'ura-inform.com'],
+	[u'рецесія', u'економічна криза', u'Україна', u'Росія', 
+		u'Єврозона', u'інфляція', u'безробіття', 
+		u'Рецессия', u'экономический кризис', u'инфляция',
+		u'Еврозона', u'безработица'])
+	
+rubric_eco = Rubric(u'Економіка',
+	['epravda.com.ua', 'news.finance.ua', 'ubr.ua', 'lb.ua', 
+		'www.pravda.com.ua', 'minprom.ua', 'www.ukrinform.ua',
+		'www.unn.com.ua', 'ura-inform.com', 'www.utro.ua', 
+		'korrespondent.net'],
+	[u'экономика', u'производство', u'финансы', u'банки'])
+		
+		
+rubric_pol = Rubric(u"Політика", \
+	['4vlada.net'], [u"политолог"])#"minprom.ua","www.pravda.com.ua","www.ukrinform.ua"], \
 	#[u"политолог"]), u"партия",u"политика",u"флеш-мобы",u"акции протеста"])
 	
 root = tk.Tk()
 #~ myapp=MyApp(root)
 pyra_gui = Pyra_Gui(root)
-pyra_gui.add_rubric(rubric_economic)
+pyra_gui.add_rubric(rubric_zak)
+pyra_gui.add_rubric(rubric_vyk)
+pyra_gui.add_rubric(rubric_pol)
+pyra_gui.add_rubric(rubric_crysis)
+pyra_gui.add_rubric(rubric_eco)
 
 root.mainloop()
