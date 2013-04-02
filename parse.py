@@ -28,9 +28,9 @@ def parser(article_url):
 	return d[key](r.text)
 
 def parse_4vlada_net(in_text):
-	"""parse an article from 4vlada.net v0.1 01-04-2013"""
+	"""parse an article from 4vlada.net v0.2 02-04-2013"""
 	
-	t_sensible_text = re.findall(ur'<p>(.+)</p>',in_text)
+	t_sensible_text = re.findall(ur'<p.+>(.+)</p>',in_text)
 	article_string=u''
 	if t_sensible_text:
 		for i in t_sensible_text[0:-1]: # last match in the t_sensible_text list is useless
