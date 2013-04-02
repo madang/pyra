@@ -30,7 +30,7 @@ class Pyra_Gui:
 		# ================== THE PARMS FRAME ===========================
 		self.parameters = tk.Frame(parent)#, text = u'Параметри')
 		self.parameters.configure(width = 100)
-		self.parameters.pack(side = tk.RIGHT, expand = "no") #, fill = "both")
+		self.parameters.pack(side = tk.RIGHT, expand = "yes", fill = "y") #, fill = "both")
 		
 		# ================== DATE OPTIONS SUBFRAME
 		self.date_options = tk.LabelFrame(self.parameters, text = u'Період публікації')
@@ -69,23 +69,23 @@ class Pyra_Gui:
 		
 		self.search_options = tk.LabelFrame(self.parameters, text = u'Параметри пошуку')
 		self.search_options.configure(width = 100)
-		self.search_options.pack(side = tk.TOP)
+		self.search_options.pack(expand = "yes", fill = "both")
 		
-		# ------------------ Sites label and text
+		# ------------------ Sites label and Listbox
 		self.sites_label = tk.Label(self.search_options,text = u"Сайти")
 		self.sites_label.pack(anchor = "w")
 		
 		self.sites = tk.Listbox(self.search_options)
 		#~ self.sites.configure(height = 10,width=t_width)
-		self.sites.pack()#expand = "yes", fill = "both")
+		self.sites.pack(anchor = "n" ,expand = "yes", fill = "both")
 		
-		#------------------- Keyword label and text
+		#------------------- Keyword label and Listbox
 		self.keywords_label = tk.Label(self.search_options, text = u"Ключові слова")
 		self.keywords_label.pack(anchor = "w")
 		
 		self.keywords = tk.Listbox(self.search_options)
 		#~ self.keywords.configure(height = 10,width=t_width)
-		self.keywords.pack()#expand = "yes", fill = "both")
+		self.keywords.pack(anchor = "s", expand = "yes", fill = "both")
 		
 		
 		# ================== THE MAIN FRAME ============================
@@ -118,10 +118,12 @@ class Pyra_Gui:
 		# get the rubric instance using the name
 		temp_rub = self.rubrics[in_rubric_name]
 		
+		# update the sites listbox
 		self.sites.delete(0,tk.END)
 		for sit in temp_rub.sites:
 			self.sites.insert(tk.END, sit)
 			
+		# update the keywords listbox
 		self.keywords.delete(0,tk.END)
 		for k in temp_rub.kw:
 			self.keywords.insert(tk.END, k)
