@@ -73,11 +73,11 @@ def parse_www_pravda_com_ua(in_text):
 def parse_www_ukrinform_ua(in_text):
 	"""parse an article from www.ukrinform.ua v0.1 01-04-2013"""
 	t_sensible_text = re.findall(ur'<h1>(.+)<div class="clear">',in_text,re.DOTALL)
-	print "len(t_sensible_text) = %d" % len(t_sensible_text)
+	#~ print "len(t_sensible_text) = %d" % len(t_sensible_text)
 	article_string = '\n'.join(t_sensible_text)
-	raw_input(">>>>>>");
-	print '='*40
-	print article_string.encode('utf-8')
+	#~ raw_input(">>>>>>");
+	#~ print '='*40
+	#~ print article_string.encode('utf-8')
 	return article_string
 	
 	#~ # save results for analysis
@@ -105,11 +105,6 @@ def filter_blacklisted(in_text):
 		return False
 
 def parse_link_list(link_list):
-	#~ site = 'www.ukrinform.ua'
-	#~ keyword = u'политолог'
-	#~ timeframe = 'w' # 'w' for last week, 'd' for yesterday
-	#~ 
-	#~ link_list = search.startpage_parse(site,keyword,timeframe)
 	print '='*40
 	print link_list
 
@@ -120,3 +115,24 @@ def parse_link_list(link_list):
 
 	return out_dic
 
+if __name__=="__main__":
+	from sys import argv
+	print argv
+	if len(argv) != 4:
+		print "parse.py: Usage:parse.py site keyword timeframe"
+		raw_input("Press Ctrl-C or I will continue with args from the source code")
+		 
+		site = 'www.ukrinform.ua'
+		keyword = u'политолог'
+		timeframe = 'w' # 'w' for last week, 'd' for yesterday
+	else:
+		site, shell_keyword, timeframe = argv[1:]
+		keyword = shell_keyword.decode('utf-8')
+	link_list = search.startpage_parse(site,keyword,timeframe)
+	t_dic =  parse_link_list(link_list)
+	for t_a in t_dic:
+		print "="*80
+		print t_a.encode('utf-8')
+		print "="*80
+		print t_dic[t_a].encode('utf-8')
+		print "\n"*2
