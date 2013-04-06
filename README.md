@@ -7,7 +7,9 @@ launch gui.py to see it (kind of) working
 
 [current todo in progress]: write parsers for each site 
 
-* move Rubrics class to separate file (main.py or smth) in order to separate GUI from the function
+* define the CLI interface spec
+
+* imlement the CLI 
 
 * exclude homepages from parsing (relevant at least for www.ukrinform.ua)
 
@@ -16,6 +18,9 @@ launch gui.py to see it (kind of) working
 * separate replacement of html markup (like quot) with their string counterparts into a separate function
 
 ==maybe==
+* add if __name__ == __main__: "test cases" in modules 
+
+* move Rubrics class to separate file (main.py or smth) in order to separate GUI from the function
 
 * add an update button and use manual updates for rubrics
 
@@ -23,9 +28,6 @@ launch gui.py to see it (kind of) working
 
 * parse multiple pages from the search result (>10 articles per request)
 
-* define the CLI interface spec
-
-* imlement the CLI 
 ==done==
 	
 x read this http://docs.python-requests.org/en/latest/index.html (install and use Requests) 
