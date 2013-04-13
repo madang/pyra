@@ -12,7 +12,9 @@ def parser(article_url):
 	d = {u'4vlada.net':parse_4vlada_net,
 		u'minprom.ua':parse_minprom_ua,
 		u'www.pravda.com.ua':parse_www_pravda_com_ua,
-		u'www.ukrinform.ua':parse_www_ukrinform_ua}
+		u'www.ukrinform.ua':parse_www_ukrinform_ua,
+		u'iportal.rada.gov.ua':parse_iportal_rada_gov_ua}
+		
 	
 	print '*'*24
 	print 'article_url = %s' % article_url
@@ -80,6 +82,11 @@ def parse_www_ukrinform_ua(in_text):
 	#~ print article_string.encode('utf-8')
 	return article_string
 	
+	
+def parse_iportal_rada_gov_ua(in_text):
+	t_sensible_text = re.findall(ur'lang="UK">(.+?)</span></p>',in_text,re.DOTALL)
+	article_string = '\n'.join(t_sensible_text)
+	return article_string
 	#~ # save results for analysis
 	#~ t_filename = 'res.txt'
 	#~ with open(t_filename,'w+') as f:
